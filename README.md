@@ -62,7 +62,7 @@ python3 -m unittest discover -s tests -v
 
 ## Vercel 배포
 1. GitHub에 이 저장소를 push합니다.
-2. Vercel에서 **Add New → Project**로 저장소를 가져옵니다. Framework Preset은 **Other**, 빌드 설정은 기본값입니다.
+2. Vercel에서 **Add New → Project**로 저장소를 가져옵니다. `vercel.json`이 프레임워크 자동 감지를 끄므로 Framework Preset은 **Other**(빌드 명령 없음)로 둡니다. Python 프리셋이 선택되면 `PYTHON_ENTRYPOINT_NOT_FOUND` 오류가 날 수 있습니다.
 3. **Settings → Environment Variables**에 `GEMINI_API_KEY`를 추가합니다(Production, Preview 모두).
 4. **Deploy** 후 배포 URL에서 네비게이션, 모바일 화면, AI 기능을 확인합니다.
 5. 환경 변수를 바꾼 뒤에는 재배포해야 반영됩니다. 오류는 Vercel의 Logs에서 확인합니다.
