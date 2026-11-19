@@ -5,7 +5,7 @@
 전공과 관심 키워드를 입력하면 AI(Gemini)가 연구 질문 후보 3개와 문헌 검색 키워드를 제안하는 웹 서비스입니다.
 
 - **배포 URL**: https://travel-coach.vercel.app/
-- 기획서: [docs/plan.md](docs/plan.md) · 개념 설명: [docs/concepts.md](docs/concepts.md) · 체크리스트: [CHECKLIST.md](CHECKLIST.md)
+- 기획서: [docs/plan.md](docs/plan.md) · 개념 설명: [docs/concepts.md](docs/concepts.md) · 체크리스트: [CHECKLIST.md](CHECKLIST.md) · AI 코딩 도구 사용 기록: [docs/ai-coding-log.md](docs/ai-coding-log.md)
 
 ## 기술 스택
 - 프론트엔드: 순수 HTML, CSS, JavaScript (프레임워크 없음)
