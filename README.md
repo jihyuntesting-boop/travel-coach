@@ -1,6 +1,6 @@
 # 연구질문 코치
 
-전공과 관심 키워드를 입력하면 AI(Claude)가 연구 질문 후보 3개와 문헌 검색 키워드를 제안하는 웹 서비스입니다.
+전공과 관심 키워드를 입력하면 AI(Gemini)가 연구 질문 후보 3개와 문헌 검색 키워드를 제안하는 웹 서비스입니다.
 
 - **배포 URL**: (Vercel 배포 후 기입)
 - 기획서: [docs/plan.md](docs/plan.md) · 개념 설명: [docs/concepts.md](docs/concepts.md) · 체크리스트: [CHECKLIST.md](CHECKLIST.md)
@@ -8,7 +8,7 @@
 ## 기술 스택
 - 프론트엔드: 순수 HTML, CSS, JavaScript (프레임워크 없음)
 - 백엔드: Vercel Serverless Functions (Python), `api/` 폴더
-- AI: Anthropic Claude API (`anthropic` 패키지)
+- AI: Google Gemini API (`requests`로 REST 호출)
 - 배포: GitHub 연동 + Vercel
 
 ## 폴더 구조
@@ -25,8 +25,8 @@ requirements.txt  Python 의존성
 ## 환경 변수
 | 이름 | 필수 | 설명 |
 |---|---|---|
-| `ANTHROPIC_API_KEY` | 필수 | Anthropic 콘솔에서 발급한 키 |
-| `ANTHROPIC_MODEL` | 선택 | 기본값 `claude-sonnet-5-5` |
+| `GEMINI_API_KEY` | 필수 | Google AI Studio에서 발급한 키 |
+| `GEMINI_MODEL` | 선택 | 기본값 `gemini-2.5-flash` |
 
 키는 코드, README, 스크린샷에 넣지 않습니다. `.env.example`을 참고하되 실제 값은 `.env`(Git 제외) 또는 Vercel 설정에만 저장합니다.
 
@@ -45,7 +45,7 @@ pip install -r requirements.txt
 ```bash
 cp .env.example .env
 ```
-`.env` 파일을 열어 `ANTHROPIC_API_KEY=` 뒤에 키를 입력합니다.
+`.env` 파일을 열어 `GEMINI_API_KEY=` 뒤에 키를 입력합니다.
 
 ```bash
 npx vercel dev
@@ -63,11 +63,11 @@ python3 -m unittest discover -s tests -v
 ## Vercel 배포
 1. GitHub에 이 저장소를 push합니다.
 2. Vercel에서 **Add New → Project**로 저장소를 가져옵니다. Framework Preset은 **Other**, 빌드 설정은 기본값입니다.
-3. **Settings → Environment Variables**에 `ANTHROPIC_API_KEY`를 추가합니다(Production, Preview 모두).
+3. **Settings → Environment Variables**에 `GEMINI_API_KEY`를 추가합니다(Production, Preview 모두).
 4. **Deploy** 후 배포 URL에서 네비게이션, 모바일 화면, AI 기능을 확인합니다.
 5. 환경 변수를 바꾼 뒤에는 재배포해야 반영됩니다. 오류는 Vercel의 Logs에서 확인합니다.
 
 ## 주의사항
-- AI 호출에는 비용이 발생할 수 있습니다. 입력 길이와 출력 토큰을 제한했고, Anthropic 콘솔에서 사용 한도를 설정하세요.
+- AI 호출에는 비용이 발생할 수 있습니다. 입력 길이와 출력 토큰을 제한했고, Google AI Studio에서 사용량과 결제 설정을 확인하세요.
 - 키가 노출되었다면 즉시 폐기하고 재발급하세요.
 - 제안된 연구 질문은 출발점이며, 선행 연구 확인과 지도교수 검토가 필요합니다.
