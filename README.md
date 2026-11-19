@@ -28,7 +28,7 @@ requirements.txt  Python 의존성
 | 이름 | 필수 | 설명 |
 |---|---|---|
 | `GEMINI_API_KEY` | 필수 | Google AI Studio에서 발급한 키 |
-| `GEMINI_MODEL` | 선택 | 기본값 `gemini-2.5-flash` |
+| `GEMINI_MODEL` | 선택 | 기본값 `gemini-flash-latest` |
 
 키는 코드, README, 스크린샷에 넣지 않습니다. `.env.example`을 참고하되 실제 값은 `.env`(Git 제외) 또는 Vercel 설정에만 저장합니다.
 
