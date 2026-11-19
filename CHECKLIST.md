@@ -5,11 +5,11 @@
 ## 제출 패키지 (필수 5종)
 | 항목 | 상태 | 근거 |
 |---|---|---|
-| 배포된 웹 서비스(Vercel URL) | ✅ | https://travel-coach.vercel.app/ (배포 사이트 접속과 AI 호출을 직접 확인) |
+| 배포된 웹 서비스(Vercel URL) | ✅ | https://travel-coach.vercel.app/ (로그인 없이 페이지, 정적 파일, AI 호출 모두 HTTP 200 확인) |
 | GitHub 저장소 | ✅ | https://github.com/jihyuntesting-boop/travel-coach (push 후 로컬·원격 해시 일치 확인, 커밋 20개 이상) |
 | README.md | ✅ | [README.md](README.md) (배포 URL 기입 완료) |
 | 서비스 기획서 | ✅ | [docs/plan.md](docs/plan.md) |
-| 증빙 자료 | ⚠️ | 배포 사이트 스크린샷(데스크톱, 모바일, 빈 입력, AI 결과)은 [docs/screenshots/](docs/screenshots)의 `deployed-*` 파일. AI 코딩 도구 대화 로그는 ❌ |
+| 증빙 자료 | ⚠️ | 배포 사이트 스크린샷(데스크톱, 모바일, 빈 입력, AI 결과)은 [docs/screenshots/](docs/screenshots)의 `deployed-*` 파일. AI 코딩 도구 사용 기록은 [docs/ai-coding-log.md](docs/ai-coding-log.md) (대화 화면 캡처는 사용자가 추가) |
 
 ## 기능 요구사항
 | 요구사항 | 상태 | 근거 |
@@ -35,6 +35,5 @@
 - 템플릿 비복제: 예시(멍냥케어)와 다른 아이디어와 문구.
 
 ## 사용자가 해야 할 일
-1. Vercel의 Deployment Protection이 꺼져 있어 로그인 없이 접속되는지 시크릿 창에서 확인한다.
-2. 이 대화 화면 등 AI 코딩 도구 사용 증빙을 캡처한다.
-3. 제출 화면에 키, 이메일, 맥 사용자 이름이 보이지 않는지 확인한다.
+1. (선택) 이 대화 화면도 캡처해 AI 코딩 도구 사용 증빙에 함께 첨부한다.
+2. 제출 화면에 키, 이메일, 맥 사용자 이름이 보이지 않는지 확인한다.
