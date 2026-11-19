@@ -5,11 +5,11 @@
 ## 제출 패키지 (필수 5종)
 | 항목 | 상태 | 근거 |
 |---|---|---|
-| 배포된 웹 서비스(Vercel URL) | ✅ | https://travel-coach.vercel.app/ (사용자가 접속해 동작 확인했다고 보고. 제 환경에서는 vercel.app 접속이 차단되어 직접 검증하지 못함) |
-| GitHub 저장소 | ⚠️ | 로컬 저장소와 커밋 이력 완성, 원격 push는 대상 저장소 확정 후 진행 |
-| README.md | ✅ | [README.md](README.md). 배포 URL 칸만 배포 후 기입 |
+| 배포된 웹 서비스(Vercel URL) | ✅ | https://travel-coach.vercel.app/ (배포 사이트 접속과 AI 호출을 직접 확인) |
+| GitHub 저장소 | ✅ | https://github.com/jihyuntesting-boop/travel-coach (push 후 로컬·원격 해시 일치 확인, 커밋 20개 이상) |
+| README.md | ✅ | [README.md](README.md) (배포 URL 기입 완료) |
 | 서비스 기획서 | ✅ | [docs/plan.md](docs/plan.md) |
-| 증빙 자료 | ⚠️ | 로컬 화면 스크린샷 5장은 [docs/screenshots/](docs/screenshots). AI 동작 장면과 AI 코딩 도구 대화 로그는 ❌ |
+| 증빙 자료 | ⚠️ | 배포 사이트 스크린샷(데스크톱, 모바일, 빈 입력, AI 결과)은 [docs/screenshots/](docs/screenshots)의 `deployed-*` 파일. AI 코딩 도구 대화 로그는 ❌ |
 
 ## 기능 요구사항
 | 요구사항 | 상태 | 근거 |
@@ -18,9 +18,9 @@
 | 2. 프로젝트 구조(index.html, css/, js/, api/, requirements.txt)와 커밋 이력 | ✅ | 폴더 구조, `git log` |
 | 3. 프론트엔드(바닐라, 섹션 4개, 네비게이션) | ✅ | index.html, css/, js/, 스크린샷 |
 | 4. 반응형, 2가지 이상 화면 크기 확인 | ✅ | 1280px, 390px 직접 확인(가로 스크롤 없음 측정), 스크린샷 |
-| 5. AI UX: 입력 UI, 결과 표시, 실패 안내 1개 이상 | ✅ | 빈 입력, 서버 오류, 지연, 시간 초과, 네트워크 오류 안내 구현. 빈 입력과 서버 오류는 실제 실행 화면 확인 |
-| 6. Python 서버리스 함수, Gemini 호출, requirements.txt, fetch 연동 | ⚠️ | 코드 완성, mock 단위 테스트 12개 통과. 실제 Gemini 호출은 키가 필요해 미검증 |
-| 7. Vercel 배포와 배포 URL 동작 검증 | ✅ | 사용자가 배포 URL에서 동작 확인(직접 검증은 못 함). 배포 오류는 vercel.json으로 수정 후 재배포 |
+| 5. AI UX: 입력 UI, 결과 표시, 실패 안내 1개 이상 | ✅ | 입력 폼, 결과 표시, 빈 입력·서버 오류·지연·시간 초과·네트워크 오류 안내 구현. 빈 입력 안내와 AI 결과는 배포 화면으로 확인 |
+| 6. Python 서버리스 함수, Gemini 호출, requirements.txt, fetch 연동 | ✅ | 배포 사이트에서 실제 호출 성공(HTTP 200, 연구 질문 3개 반환). mock 단위 테스트 12개도 통과 |
+| 7. Vercel 배포와 배포 URL 동작 검증 | ✅ | 배포 오류는 vercel.json으로, 모델 종료 문제는 gemini-flash-latest로 수정 후 재배포. 배포 URL에서 메뉴, 빈 입력, AI 호출 확인 |
 | 8. 문서화와 제출 패키지 구성 | ⚠️ | 문서 완료, 증빙 일부는 ❌ |
 
 ## 보너스
@@ -35,9 +35,6 @@
 - 템플릿 비복제: 예시(멍냥케어)와 다른 아이디어와 문구.
 
 ## 사용자가 해야 할 일
-1. Google AI Studio에서 Gemini API 키를 발급한다.
-2. 푸시할 GitHub 저장소를 확정한다(아래 안내 참고).
-3. Vercel에서 저장소를 가져와 `GEMINI_API_KEY`를 환경 변수로 등록하고 배포한다.
-4. 배포 URL에서 AI 기능 동작 장면과 모바일 화면을 캡처한다(키, 이메일, 맥 사용자 이름이 보이면 가림 처리).
-5. 이 대화 화면 등 AI 코딩 도구 사용 증빙을 캡처한다.
-6. README의 배포 URL 칸을 채운다.
+1. Vercel의 Deployment Protection이 꺼져 있어 로그인 없이 접속되는지 시크릿 창에서 확인한다.
+2. 이 대화 화면 등 AI 코딩 도구 사용 증빙을 캡처한다.
+3. 제출 화면에 키, 이메일, 맥 사용자 이름이 보이지 않는지 확인한다.
