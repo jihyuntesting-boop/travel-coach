@@ -10,7 +10,7 @@ GOOD = (
     '{"questions":[{"question":"Q1","why":"W1"},{"question":"Q2","why":"W2"},'
     '{"question":"Q3","why":"W3"}],"keywords":["a","b","c","d","e"],"caution":"C"}'
 )
-ENV = {"ANTHROPIC_API_KEY": "test-key-not-real"}
+ENV = {"GEMINI_API_KEY": "test-key-not-real"}
 
 
 class ValidateTest(unittest.TestCase):
@@ -65,7 +65,7 @@ class HandleTest(unittest.TestCase):
     def test_missing_key(self):
         status, body = _core.handle({"field": "a", "keywords": "b"}, caller=lambda *a: GOOD, env={})
         self.assertEqual(status, 500)
-        self.assertNotIn("ANTHROPIC", body["error"])
+        self.assertNotIn("GEMINI", body["error"])
 
     def test_upstream_error_hides_details(self):
         def fail(*a):

@@ -8,7 +8,7 @@
 ## 입력에서 화면 반영까지의 흐름
 1. 사용자가 폼을 제출하면 JavaScript가 입력값을 검사한다.
 2. 통과하면 `fetch('/api/coach', {method: 'POST', body: JSON})`로 서버에 요청한다.
-3. 서버 함수가 입력을 다시 검증하고 Claude API를 호출한다.
+3. 서버 함수가 입력을 다시 검증하고 Gemini API를 호출한다.
 4. 서버가 JSON을 응답하면 JavaScript가 DOM에 결과를 그린다.
 5. 오류 상태 코드가 오면 서버가 준 안내 문구를 화면에 표시한다.
 

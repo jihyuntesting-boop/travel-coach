@@ -25,7 +25,7 @@
   - 연구 질문 후보 3개와 각 이유
   - 문헌 검색 키워드 5~8개
   - 범위에 대한 주의점 한 문장
-- **호출 구조**: 브라우저 `fetch('/api/coach')` → Vercel Serverless Function(Python) → Claude API
+- **호출 구조**: 브라우저 `fetch('/api/coach')` → Vercel Serverless Function(Python) → Gemini API
 
 ## 4. 실패 처리 기준
 | 상황 | 감지 위치 | 사용자 안내 |

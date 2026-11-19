@@ -9,7 +9,7 @@ import os
 MAX_FIELD = 60
 MAX_KEYWORDS = 200
 LEVELS = {"학부": "학부 졸업논문", "석사": "석사 학위논문", "박사": "박사 학위논문"}
-DEFAULT_MODEL = "claude-sonnet-5-5"
+DEFAULT_MODEL = "gemini-2.5-flash"
 TIMEOUT_SECONDS = 20
 
 SYSTEM_PROMPT = (
@@ -72,30 +72,36 @@ def parse_model_text(text):
     }
 
 
-def call_claude(user_prompt, api_key, model, timeout=TIMEOUT_SECONDS):
-    """Anthropic Messages API를 호출해 텍스트를 돌려준다."""
-    import anthropic  # 지연 import: 단위 테스트에서는 필요 없다.
+def call_gemini(user_prompt, api_key, model, timeout=TIMEOUT_SECONDS):
+    """Google Gemini API(generateContent)를 호출해 텍스트를 돌려준다."""
+    import requests  # 지연 import: 단위 테스트에서는 필요 없다.
 
-    client = anthropic.Anthropic(api_key=api_key, timeout=timeout, max_retries=1)
-    message = client.messages.create(
-        model=model,
-        max_tokens=900,
-        system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": user_prompt}],
-    )
-    return "".join(b.text for b in message.content if getattr(b, "type", "") == "text")
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+    body = {
+        "systemInstruction": {"parts": [{"text": SYSTEM_PROMPT}]},
+        "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
+        "generationConfig": {
+            "maxOutputTokens": 2048,
+            "responseMimeType": "application/json",
+            "thinkingConfig": {"thinkingBudget": 0},
+        },
+    }
+    resp = requests.post(url, json=body, headers={"x-goog-api-key": api_key}, timeout=timeout)
+    resp.raise_for_status()
+    parts = resp.json()["candidates"][0]["content"]["parts"]
+    return "".join(p.get("text", "") for p in parts)
 
 
-def handle(payload, caller=call_claude, env=None):
+def handle(payload, caller=call_gemini, env=None):
     """(HTTP 상태 코드, 응답 딕셔너리)를 돌려준다. caller는 테스트에서 교체한다."""
     env = os.environ if env is None else env
     error, data = validate(payload)
     if error:
         return 400, {"error": error}
-    api_key = env.get("ANTHROPIC_API_KEY")
+    api_key = env.get("GEMINI_API_KEY")
     if not api_key:
         return 500, {"error": "서버 설정이 완료되지 않았습니다. 관리자에게 문의하세요."}
-    model = env.get("ANTHROPIC_MODEL", DEFAULT_MODEL)
+    model = env.get("GEMINI_MODEL", DEFAULT_MODEL)
     try:
         text = caller(build_user_prompt(data), api_key, model)
     except Exception:  # 키와 내부 오류 내용을 사용자에게 노출하지 않는다.
