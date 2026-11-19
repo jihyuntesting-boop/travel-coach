@@ -5,11 +5,12 @@
 """
 import json
 import os
+import sys
 
 MAX_FIELD = 60
 MAX_KEYWORDS = 200
 LEVELS = {"학부": "학부 졸업논문", "석사": "석사 학위논문", "박사": "박사 학위논문"}
-DEFAULT_MODEL = "gemini-2.5-flash"
+DEFAULT_MODEL = "gemini-flash-latest"
 TIMEOUT_SECONDS = 20
 
 SYSTEM_PROMPT = (
@@ -81,13 +82,15 @@ def call_gemini(user_prompt, api_key, model, timeout=TIMEOUT_SECONDS):
         "systemInstruction": {"parts": [{"text": SYSTEM_PROMPT}]},
         "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
         "generationConfig": {
-            "maxOutputTokens": 2048,
+            "maxOutputTokens": 4096,
             "responseMimeType": "application/json",
-            "thinkingConfig": {"thinkingBudget": 0},
         },
     }
     resp = requests.post(url, json=body, headers={"x-goog-api-key": api_key}, timeout=timeout)
-    resp.raise_for_status()
+    if not resp.ok:
+        # 원인 파악용 로그(Vercel Logs). 요청 헤더의 키는 포함하지 않는다.
+        print(f"[gemini] status={resp.status_code} model={model} body={resp.text[:500]}", file=sys.stderr)
+        resp.raise_for_status()
     parts = resp.json()["candidates"][0]["content"]["parts"]
     return "".join(p.get("text", "") for p in parts)
 
@@ -104,7 +107,8 @@ def handle(payload, caller=call_gemini, env=None):
     model = env.get("GEMINI_MODEL", DEFAULT_MODEL)
     try:
         text = caller(build_user_prompt(data), api_key, model)
-    except Exception:  # 키와 내부 오류 내용을 사용자에게 노출하지 않는다.
+    except Exception as exc:  # 키와 내부 오류 내용을 사용자에게 노출하지 않는다.
+        print(f"[coach] upstream error: {type(exc).__name__}", file=sys.stderr)
         return 502, {"error": "AI 서비스 호출에 실패했습니다. 잠시 후 다시 시도하세요."}
     result = parse_model_text(text)
     if result is None:
