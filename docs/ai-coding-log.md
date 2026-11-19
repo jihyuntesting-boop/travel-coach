@@ -1,7 +1,7 @@
 # AI 코딩 도구 사용 기록
 
 - 사용 도구: Claude Code (클라우드 세션)
-- 이 문서는 작업 과정에서 실제로 있었던 일을 요약한 기록입니다. 원문 대화 화면 캡처는 별도로 첨부합니다.
+- 이 문서는 작업 과정에서 실제로 있었던 일을 요약한 기록입니다. 대화 화면 캡처는 [evidence/ai-coding-tool-capture.jpg](evidence/ai-coding-tool-capture.jpg)에 있습니다.
 
 ## 1. 기획과 구현
 | 단계 | 사용자 요청 | AI 작업 |
